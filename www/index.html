@@ -23,7 +23,7 @@
       
     // ready クリックの処理の登録
     $(function() { 
-        $('#date').click(function(e) {
+        $('#date').click(function(e){
             setDebugMode(e);
         });
       
@@ -159,7 +159,7 @@
     // ボタンの初期設定
     function init(){
         $('#btnA').prop('disabled', false);
-        $('#btnB').prop('disabled', false);
+        $('#btnB').prop('disabled', true);  // 停止ボタンは最初は無効
         $('#btnC').prop('disabled', false);
     }
 
@@ -177,18 +177,24 @@
         audio.play();
     }
     
-    // ButtonAがクリックされた時の処理
+    // ButtonAがクリックされた時の処理（開始ボタン）
     function btnAClick(e){
         active = true;
         startTime = new Date();
+        $('#btnA').prop('disabled', true);   // 開始ボタンを無効化
+        $('#btnB').prop('disabled', false);  // 停止ボタンを有効化
+        $('#btnC').prop('disabled', true);   // 設定ボタンを無効化
     }
 
-    // ButtonBがクリックされた時の処理
+    // ButtonBがクリックされた時の処理（停止ボタン）
     function btnBClick(e){
         active = false;
+        $('#btnA').prop('disabled', false);  // 開始ボタンを有効化
+        $('#btnB').prop('disabled', true);   // 停止ボタンを無効化
+        $('#btnC').prop('disabled', false);  // 設定ボタンを有効化
     }
 
-    // ButtonCがクリックされた時の処理
+    // ButtonCがクリックされた時の処理（設定ボタン）
     function btnCClick(e){
         alarm();
         active = false;
@@ -212,9 +218,12 @@
             analog(rest);
             
             // タイマーの終了処理
-            if (rest <= 0){
+            if (rest <= 0) {
                 active = false;
                 alarm();
+                $('#btnA').prop('disabled', false); 
+                $('#btnB').prop('disabled', true);   
+                $('#btnC').prop('disabled', false);  
             }
         }
     }
@@ -226,6 +235,8 @@
         $('#btnB').click(btnBClick);
         $('#btnC').click(btnCClick);
         
+        // タイマーを100msごとに実行
+        setInterval(timer, 100);
     });
 
   </script>
