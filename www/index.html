@@ -177,18 +177,18 @@
         audio.play();
     }
     
-    // ButtonAがクリックされた時の処理（開始ボタン）
+    // ButtonAがクリックされた時の処理
     function btnAClick(e){
         active = true;
         startTime = new Date();
     }
 
-    // ButtonBがクリックされた時の処理（停止ボタン）
+    // ButtonBがクリックされた時の処理
     function btnBClick(e){
         active = false;
     }
 
-    // ButtonCがクリックされた時の処理（設定ボタン）
+    // ButtonCがクリックされた時の処理
     function btnCClick(e){
         alarm();
         active = false;
@@ -212,7 +212,10 @@
             analog(rest);
             
             // タイマーの終了処理
-           
+            if (rest <= 0){
+                active = false;
+                alarm();
+            }
         }
     }
 
