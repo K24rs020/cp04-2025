@@ -161,6 +161,7 @@
         $('#btnA').prop('disabled', false);
         $('#btnB').prop('disabled', true);  // 停止ボタンは最初は無効
         $('#btnC').prop('disabled', false);
+        btnCClick(null);  // 初期値として入力欄の数値を設定
     }
 
     // Alarmの処理
@@ -181,17 +182,17 @@
     function btnAClick(e){
         active = true;
         startTime = new Date();
-        $('#btnA').prop('disabled', true);   // 開始ボタンを無効化
-        $('#btnB').prop('disabled', false);  // 停止ボタンを有効化
-        $('#btnC').prop('disabled', true);   // 設定ボタンを無効化
+        $('#btnA').prop('disabled', true);   
+        $('#btnB').prop('disabled', false);   
+        $('#btnC').prop('disabled', true);    
     }
 
     // ButtonBがクリックされた時の処理（停止ボタン）
     function btnBClick(e){
         active = false;
-        $('#btnA').prop('disabled', false);  // 開始ボタンを有効化
-        $('#btnB').prop('disabled', true);   // 停止ボタンを無効化
-        $('#btnC').prop('disabled', false);  // 設定ボタンを有効化
+        $('#btnA').prop('disabled', false);   
+        $('#btnB').prop('disabled', true);    
+        $('#btnC').prop('disabled', false);   
     }
 
     // ButtonCがクリックされた時の処理（設定ボタン）
@@ -221,9 +222,9 @@
             if (rest <= 0) {
                 active = false;
                 alarm();
-                $('#btnA').prop('disabled', false); 
-                $('#btnB').prop('disabled', true);   
-                $('#btnC').prop('disabled', false);  
+                $('#btnA').prop('disabled', false);   
+                $('#btnB').prop('disabled', true);    
+                $('#btnC').prop('disabled', false);   
             }
         }
     }
