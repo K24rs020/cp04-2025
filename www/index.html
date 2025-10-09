@@ -150,15 +150,13 @@
 
 
     // 変数宣言
-    var active = false; 
+    var active = false;
     var startTime = 0;
-    var period = 0; 
+    var period = 0;
     var rest = 0;
     var etime = 0;
 
-  
     // ボタンの初期設定
-        // ボタンの初期設定
     function init(){
         $('#btnA').prop('disabled', false);
         $('#btnB').prop('disabled', false);
@@ -179,28 +177,43 @@
         audio.play();
     }
     
-    // ButtonAがクリックされた時の処理
+    // ButtonAがクリックされた時の処理（開始ボタン）
     function btnAClick(e){
-        // ここに処理を追加
-        active = true; 
+        active = true;
         startTime = new Date();
     }
 
-    // ButtonBがクリックされた時の処理
+    // ButtonBがクリックされた時の処理（停止ボタン）
     function btnBClick(e){
-        // ここに処理を追加
         active = false;
     }
 
-    // ButtonCがクリックされた時の処理
+    // ButtonCがクリックされた時の処理（設定ボタン）
     function btnCClick(e){
         alarm();
+        active = false;
+        period = 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
+        $("#time").html("経過時間： 0");
+        $("#remain").html("残り時間： " + period);
     }
     
+    // アナログ表示の関数（ダミー）
+    function analog(rest){
+        // アナログ表示の処理（必要に応じて実装）
+    }
  
     // 繰り返し実行する処理
     function timer(){  
-        // ここに処理を追加
+        if (active) {
+            etime = parseInt((new Date() - startTime) / 1000);
+            rest = period - etime;
+            $("#time").html("経過時間： " + etime);
+            $("#remain").html("残り時間： " + rest);
+            analog(rest);
+            
+            // タイマーの終了処理
+           
+        }
     }
 
     // ページ読み込み時の処理
@@ -209,23 +222,23 @@
         $('#btnA').click(btnAClick);
         $('#btnB').click(btnBClick);
         $('#btnC').click(btnCClick);
+        
     });
 
   </script>
 </head>
 <body>
-    <canvas id="mycanvas" width="200" height="200">Test</canvas>
+    <canvas id="mycanvas" width="300" height="300">Test</canvas>
 
     <div id="minuteStr">〇</div>
     <div id="secondStr">〇</div>
 
-    <div id="remain">Remaining time</div>
-    <div id="time">Time</div>
-    <button id="btnA">ButtonA</button>  
-    <button id="btnB">ButtonB</button>  
-    <button id="btnC">ButtonC</button>  
-    <input type="number" id="minute" value="3">
-    <input type="number" id="second" value="0">
+    <div id="remain">残り時間</div>
+    <div id="time">経過時間</div>
+    <button id="btnA">ButtonA（開始）</button>  
+    <button id="btnB">ButtonB（停止）</button>  
+    <button id="btnC">ButtonC（設定）</button>  
+    <input type="number" id="minute" value="3">分
+    <input type="number" id="second" value="0">秒
 </body>
 </html>
-    
